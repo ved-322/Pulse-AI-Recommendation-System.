@@ -1,0 +1,14 @@
+01-phones-tablets.tsv
+02-laptops-pcs.tsv
+03-audio.tsv
+04-cameras.tsv
+05-wearables-smart-home.tsv
+06-gaming.tsv
+07-books.tsv
+08-movies.tsv
+09-fashion.tsv
+10-home-kitchen.tsv
+11-fitness-outdoors.tsv
+12-food-drink.tsv
+13-beauty-wellness.tsv
+14-toys-hobbies.tsv

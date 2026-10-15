@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pulse - AI-Based Recommendation System</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  :root { --k: #0a0a0a; --k2: #141414; --k3: #232323; --w: #ffffff; --g: #a3a3a3; --y: #FFD60A; --yd: #7a5c00; --ys: #FFF3B0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #000; font-family: "Segoe UI", Inter, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1280px; height: 720px; position: relative; overflow: hidden; background: var(--k); color: var(--w); padding: 44px 64px 52px; page-break-after: always; break-after: page; }
+  .slide:last-child { page-break-after: auto; }
+  h1 { font-size: 56px; line-height: 1.05; margin: 0; letter-spacing: -1.5px; font-weight: 800; }
+  h2 { font-size: 36px; margin: 0 0 6px; letter-spacing: -0.8px; font-weight: 800; }
+  h3 { font-size: 20px; margin: 0 0 8px; font-weight: 750; }
+  p { margin: 0; }
+  .kicker { color: var(--y); font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .bar { width: 64px; height: 5px; background: var(--y); border-radius: 3px; margin: 10px 0 22px; }
+  .sub { color: var(--g); font-size: 18px; }
+  .foot { position: absolute; left: 64px; right: 64px; bottom: 18px; display: flex; justify-content: space-between; font-size: 12px; color: #737373; letter-spacing: .5px; }
+  .foot b { color: var(--y); }
+  .card { background: var(--w); color: var(--k); border-radius: 18px; padding: 20px 22px; }
+  .card.dark { background: var(--k2); color: var(--w); border: 1px solid #2a2a2a; }
+  .card h3 { color: inherit; }
+  .muted { color: #5c5c5c; } .card.dark .muted { color: var(--g); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  ul { margin: 0; padding-left: 20px; } li { margin: 5px 0; font-size: 16px; line-height: 1.35; }
+  .chip { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: var(--ys); color: #5c4600; margin: 2px 3px 2px 0; }
+  .chip.k { background: #1d1d1d; color: #fff; border: 1px solid #333; }
+  .chip.y { background: var(--y); color: var(--k); }
+  .shot { border-radius: 14px; overflow: hidden; border: 2px solid #2a2a2a; background: #000; position: relative; }
+  .shot img { display: block; width: 100%; }
+  .crop { width: 100%; background-repeat: no-repeat; background-size: 100% auto; }
+  .cap { font-size: 12px; color: var(--g); margin-top: 6px; letter-spacing: .3px; }
+  .cap b { color: var(--y); }
+  .tag-label { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; padding: 3px 9px; border-radius: 6px; background: var(--y); color: var(--k); text-transform: uppercase; }
+  .tag-label.diagram { background: #fff; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th { text-align: left; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--g); padding: 8px 10px; border-bottom: 1px solid #333; }
+  td { padding: 9px 10px; border-bottom: 1px solid #2a2a2a; vertical-align: top; }
+  .card table th { color: #5c5c5c; border-color: #e6e6e6; } .card table td { border-color: #eee; }
+  .big { font-size: 44px; font-weight: 800; color: var(--y); line-height: 1; }
+  .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--y); color: var(--k); font-weight: 800; margin-right: 10px; }
+  .roomy li { font-size: 19px; line-height: 1.5; margin: 9px 0; } .roomy td { font-size: 18px; padding: 13px 10px; } .roomy .card { padding: 28px 30px; } .roomy .card.dark { font-size: 18px !important; } .roomy p.muted { font-size: 18px !important; } .roomy h3 { font-size: 24px; } .roomy .grid2, .roomy .grid3 { gap: 26px; }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide" style="padding:0">
+  <svg width="1280" height="720" viewBox="0 0 1280 720" style="position:absolute;inset:0">
+    <defs>
+      <radialGradient id="glow" cx="78%" cy="45%" r="55%"><stop offset="0" stop-color="#FFD60A" stop-opacity=".28"/><stop offset="1" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="1280" height="720" fill="#0a0a0a"/><rect width="1280" height="720" fill="url(#glow)"/>
+    <g stroke="#FFD60A" stroke-opacity=".35" stroke-width="1.6" fill="none">
+      <path d="M760 160 L900 120 M760 160 L900 250 M760 160 L900 380 M760 330 L900 120 M760 330 L900 250 M760 330 L900 380 M760 330 L900 500 M760 500 L900 250 M760 500 L900 380 M760 500 L900 500 M760 500 L900 600
+               M900 120 L1040 200 M900 120 L1040 340 M900 250 L1040 200 M900 250 L1040 340 M900 250 L1040 480 M900 380 L1040 340 M900 380 L1040 480 M900 500 L1040 340 M900 500 L1040 480 M900 600 L1040 480 M900 600 L1040 560
+               M1040 200 L1180 330 M1040 340 L1180 330 M1040 480 L1180 330 M1040 560 L1180 330"/>
+    </g>
+    <g fill="#0a0a0a" stroke="#FFD60A" stroke-width="2.5">
+      <circle cx="760" cy="160" r="15"/><circle cx="760" cy="330" r="15"/><circle cx="760" cy="500" r="15"/>
+      <circle cx="900" cy="120" r="15"/><circle cx="900" cy="250" r="15"/><circle cx="900" cy="380" r="15"/><circle cx="900" cy="500" r="15"/><circle cx="900" cy="600" r="15"/>
+      <circle cx="1040" cy="200" r="15"/><circle cx="1040" cy="340" r="15"/><circle cx="1040" cy="480" r="15"/><circle cx="1040" cy="560" r="15"/>
+    </g>
+    <circle cx="1180" cy="330" r="30" fill="#FFD60A"/>
+    <text x="1180" y="338" text-anchor="middle" font-size="22" font-weight="800" fill="#0a0a0a">AI</text>
+    <g fill="#fff" font-size="13" font-weight="700" letter-spacing="1.5" opacity=".7">
+      <text x="722" y="140">PREFERENCES</text><text x="868" y="95">BEHAVIOUR</text><text x="1000" y="650">SIMILAR USERS</text><text x="1130" y="385">YOUR PICKS</text>
+    </g>
+  </svg>
+  <div style="position:absolute;left:72px;top:96px;width:640px">
+    <div class="kicker">Java Web Based Project &nbsp;·&nbsp; Rubric B</div>
+    <h1>AI-Based<br>Recommendation<br><span style="color:var(--y)">System</span></h1>
+    <div class="bar"></div>
+    <p class="sub" style="font-size:21px;color:#d4d4d4;max-width:560px">Pulse suggests products and content from each user's preferences and behaviour, with an admin console to tune and measure the AI.</p>
+    <div style="margin-top:34px;font-size:17px;line-height:1.7">
+      <div><b style="color:var(--y)">Team Leader</b> &nbsp; Vedang Goswami</div>
+      <div><b style="color:var(--y)">Members</b> &nbsp; Ankur Kushwaha &nbsp;·&nbsp; Nitin Raghuvanshi</div>
+    </div>
+  </div>
+  <div class="foot" style="left:72px"><span>GUVI × HCL &nbsp;·&nbsp; Galgotias University</span><span><b>Java</b> Servlets · JDBC · Hybrid recommender</span></div>
+</section>
+
+<!-- 2 TEAM -->
+<section class="slide">
+  <div class="kicker">Our team</div><h2>Who built Pulse</h2><div class="bar"></div>
+  <div class="grid3" style="margin-top:6px">
+    <div class="card" style="min-height:400px">
+      <div class="num" style="width:56px;height:56px;font-size:24px;margin-bottom:12px">V</div>
+      <h3 style="font-size:26px;margin:0">Vedang Goswami</h3>
+      <div class="chip y" style="margin:8px 0 14px">Team Leader</div>
+      <ul><li>Project planning, architecture and task split</li><li>Recommendation engine and parallel scorers</li><li>Servlets, filters, sessions and security</li><li>Final integration, testing and presentation</li></ul>
+    </div>
+    <div class="card" style="min-height:400px">
+      <div class="num" style="width:56px;height:56px;font-size:24px;margin-bottom:12px">A</div>
+      <h3 style="font-size:26px;margin:0">Ankur Kushwaha</h3>
+      <div class="chip" style="margin:8px 0 14px">Team Member</div>
+      <ul><li>Database schema and JDBC data-access layer</li><li>Transactions and catalogue loading (251 products)</li><li>Analytics service and reviews backend</li><li>JUnit integration tests</li></ul>
+    </div>
+    <div class="card" style="min-height:400px">
+      <div class="num" style="width:56px;height:56px;font-size:24px;margin-bottom:12px">N</div>
+      <h3 style="font-size:26px;margin:0">Nitin Raghuvanshi</h3>
+      <div class="chip" style="margin:8px 0 14px">Team Member</div>
+      <ul><li>Front-end UI/UX and black-white-yellow design system</li><li>Discover screen, product dialog, admin dashboards</li><li>Product research, pictures and image credits</li><li>Documentation and diagrams</li></ul>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>2</b></div>
+</section>
+
+<!-- 3 PROBLEM vs SOLUTION -->
+<section class="slide">
+  <div class="kicker">Why this project</div><h2>Problem versus solution</h2><div class="bar"></div>
+  <div style="display:grid;grid-template-columns:1fr 70px 1fr;gap:0;align-items:stretch">
+    <div class="card dark" style="border-color:#3a3a3a">
+      <span class="tag-label diagram">The problem</span>
+      <svg width="100%" height="150" viewBox="0 0 460 150" style="margin:14px 0 6px">
+        <g fill="#2a2a2a" stroke="#444">
+          <rect x="6" y="8" width="64" height="40" rx="6"/><rect x="82" y="8" width="64" height="40" rx="6"/><rect x="158" y="8" width="64" height="40" rx="6"/><rect x="234" y="8" width="64" height="40" rx="6"/><rect x="310" y="8" width="64" height="40" rx="6"/><rect x="386" y="8" width="64" height="40" rx="6"/>
+          <rect x="6" y="58" width="64" height="40" rx="6"/><rect x="82" y="58" width="64" height="40" rx="6"/><rect x="158" y="58" width="64" height="40" rx="6"/><rect x="234" y="58" width="64" height="40" rx="6"/><rect x="310" y="58" width="64" height="40" rx="6"/><rect x="386" y="58" width="64" height="40" rx="6"/>
+          <rect x="6" y="108" width="64" height="36" rx="6"/><rect x="82" y="108" width="64" height="36" rx="6"/><rect x="158" y="108" width="64" height="36" rx="6"/><rect x="234" y="108" width="64" height="36" rx="6"/><rect x="310" y="108" width="64" height="36" rx="6"/><rect x="386" y="108" width="64" height="36" rx="6"/>
+        </g>
+        <text x="230" y="84" text-anchor="middle" font-size="40" fill="#fff" opacity=".85" font-weight="800">?</text>
+      </svg>
+      <ul>
+        <li>Hundreds of products - users scroll, get lost and leave</li>
+        <li>Same generic list for everybody</li>
+        <li>New users get nothing useful (cold start)</li>
+        <li>Admins cannot see which suggestions actually work</li>
+      </ul>
+    </div>
+    <div style="display:grid;place-items:center"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13 5 20 12 13 19"/></svg></div>
+    <div class="card" style="border:3px solid var(--y)">
+      <span class="tag-label">Our solution</span>
+      <svg width="100%" height="150" viewBox="0 0 460 150" style="margin:14px 0 6px">
+        <g fill="#f3f3f3" stroke="#d9d9d9"><rect x="6" y="8" width="64" height="40" rx="6"/><rect x="82" y="8" width="64" height="40" rx="6"/><rect x="234" y="8" width="64" height="40" rx="6"/><rect x="386" y="8" width="64" height="40" rx="6"/><rect x="6" y="108" width="64" height="36" rx="6"/><rect x="310" y="108" width="64" height="36" rx="6"/></g>
+        <g fill="#FFD60A" stroke="#0a0a0a" stroke-width="2"><rect x="158" y="8" width="64" height="40" rx="6"/><rect x="82" y="58" width="64" height="40" rx="6"/><rect x="234" y="58" width="64" height="40" rx="6"/><rect x="310" y="58" width="64" height="40" rx="6"/></g>
+        <text x="230" y="140" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="800">PICKED FOR YOU - WITH A REASON</text>
+      </svg>
+      <ul>
+        <li>Hybrid AI: your interests + similar users + trends</li>
+        <li>"Why this?" shown on every card</li>
+        <li>Interest studio: tell the AI, feed updates live</li>
+        <li>Admin analytics and one-click tuning suggestions</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>3</b></div>
+</section>
+
+<!-- 4 REQUIREMENTS -->
+<section class="slide">
+  <div class="kicker">Requirements</div><h2>Two user types, four core functions</h2><div class="bar"></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Admin</h3>
+      <table><tr><th>Function</th><th>Input → Output</th></tr>
+        <tr><td><b>System settings</b><br><span class="muted">weights, min score, list size, diversity</span></td><td>Settings → confirmation of update</td></tr>
+        <tr><td><b>Effectiveness analysis</b><br><span class="muted">CTR, trends, per-signal, per-category</span></td><td>Recommendation data → reports + suggestions</td></tr>
+        <tr><td><b>User management</b><br><span class="muted">profiles, roles, activate / delete</span></td><td>Admin action → updated user</td></tr></table>
+    </div>
+    <div class="card">
+      <h3>User</h3>
+      <table><tr><th>Function</th><th>Input → Output</th></tr>
+        <tr><td><b>Personalised recommendations</b><br><span class="muted">with match % and explanation</span></td><td>Behaviour + preferences → suggested products / content</td></tr>
+        <tr><td><b>Preference management</b><br><span class="muted">interest levels, topics, name</span></td><td>Preferences → confirmation of update</td></tr>
+        <tr><td><b>Reviews and feedback</b><br><span class="muted">stars + text, also trains the AI</span></td><td>Review → shown to everyone</td></tr></table>
+    </div>
+  </div>
+  <div class="card dark" style="margin-top:20px;display:flex;gap:30px;align-items:center">
+    <div><div class="big">2</div><div class="muted">dashboards</div></div>
+    <div><div class="big">251</div><div class="muted">real products</div></div>
+    <div><div class="big">14</div><div class="muted">categories</div></div>
+    <div><div class="big">3</div><div class="muted">AI signals</div></div>
+    <p style="flex:1;font-size:15px;color:#d4d4d4">Admin dashboard: <b style="color:#fff">System Settings + Recommendation Analysis</b>. User dashboard: <b style="color:#fff">Recommendation List + Preference Settings</b> - combined into one live "Discover" screen.</p>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>4</b></div>
+</section>
+
+<!-- 5 WORKFLOW -->
+<section class="slide">
+  <div class="kicker">System workflow</div><h2>How a recommendation is made</h2><div class="bar" style="margin-bottom:12px"></div>
+  <span class="tag-label diagram">Diagram</span>
+  <svg width="1152" height="470" viewBox="0 0 1152 470" style="margin-top:8px">
+    <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#FFD60A"/></marker></defs>
+    <g font-family="Segoe UI,Arial" font-size="15" font-weight="700" text-anchor="middle">
+      <rect x="10" y="30" width="170" height="64" rx="14" fill="#fff"/><text x="95" y="58" fill="#0a0a0a">User signs in</text><text x="95" y="78" fill="#5c5c5c" font-size="12" font-weight="600">session created</text>
+      <rect x="230" y="30" width="190" height="64" rx="14" fill="#fff"/><text x="325" y="58" fill="#0a0a0a">Sets interests</text><text x="325" y="78" fill="#5c5c5c" font-size="12" font-weight="600">tiles · topics · levels</text>
+      <rect x="470" y="30" width="190" height="64" rx="14" fill="#FFD60A"/><text x="565" y="58" fill="#0a0a0a">Servlet API call</text><text x="565" y="78" fill="#0a0a0a" font-size="12" font-weight="600">auth filter checks session</text>
+      <rect x="710" y="30" width="200" height="64" rx="14" fill="#fff"/><text x="810" y="58" fill="#0a0a0a">Load data (JDBC)</text><text x="810" y="78" fill="#5c5c5c" font-size="12" font-weight="600">prefs · history · all users</text>
+      <rect x="960" y="30" width="182" height="64" rx="14" fill="#fff"/><text x="1051" y="58" fill="#0a0a0a">Immutable context</text><text x="1051" y="78" fill="#5c5c5c" font-size="12" font-weight="600">thread-safe snapshot</text>
+
+      <rect x="170" y="170" width="220" height="56" rx="12" fill="#141414" stroke="#FFD60A" stroke-width="2"/><text x="280" y="204" fill="#fff">Content-based scorer</text>
+      <rect x="430" y="170" width="220" height="56" rx="12" fill="#141414" stroke="#FFD60A" stroke-width="2"/><text x="540" y="204" fill="#fff">Collaborative scorer</text>
+      <rect x="690" y="170" width="220" height="56" rx="12" fill="#141414" stroke="#FFD60A" stroke-width="2"/><text x="800" y="204" fill="#fff">Popularity scorer</text>
+      <text x="560" y="150" fill="#FFD60A" font-size="13" letter-spacing="2">RUN IN PARALLEL THREADS</text>
+
+      <rect x="330" y="290" width="490" height="60" rx="14" fill="#FFD60A"/><text x="575" y="318" fill="#0a0a0a">Blend with admin weights  (50 / 30 / 20)</text><text x="575" y="338" fill="#0a0a0a" font-size="12" font-weight="600">remove bought / dismissed · min score · category diversity · explain</text>
+
+      <rect x="10" y="390" width="230" height="64" rx="14" fill="#fff"/><text x="125" y="418" fill="#0a0a0a">Feed shown to user</text><text x="125" y="438" fill="#5c5c5c" font-size="12" font-weight="600">match % + reason</text>
+      <rect x="290" y="390" width="250" height="64" rx="14" fill="#fff"/><text x="415" y="418" fill="#0a0a0a">User acts</text><text x="415" y="438" fill="#5c5c5c" font-size="12" font-weight="600">view · like · buy · dismiss · review</text>
+      <rect x="590" y="390" width="250" height="64" rx="14" fill="#fff"/><text x="715" y="418" fill="#0a0a0a">Logged in one transaction</text><text x="715" y="438" fill="#5c5c5c" font-size="12" font-weight="600">interaction + outcome</text>
+      <rect x="890" y="390" width="252" height="64" rx="14" fill="#141414" stroke="#FFD60A" stroke-width="2"/><text x="1016" y="418" fill="#fff">Admin analytics</text><text x="1016" y="438" fill="#a3a3a3" font-size="12" font-weight="600">CTR · tune weights → loop</text>
+    </g>
+    <g stroke="#FFD60A" stroke-width="2.4" fill="none" marker-end="url(#ar)">
+      <path d="M180 62 L228 62"/><path d="M420 62 L468 62"/><path d="M660 62 L708 62"/><path d="M910 62 L958 62"/>
+      <path d="M1051 94 L1051 130 L280 130 L280 168"/><path d="M1051 130 L540 130 L540 168"/><path d="M1051 130 L800 130 L800 168"/>
+      <path d="M280 226 L280 258 L500 258 L500 288"/><path d="M540 226 L540 288"/><path d="M800 226 L800 258 L650 258 L650 288"/>
+      <path d="M575 350 L575 372 L125 372 L125 388"/>
+      <path d="M240 422 L288 422"/><path d="M540 422 L588 422"/><path d="M840 422 L888 422"/>
+    </g>
+  </svg>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>5</b></div>
+</section>
+
+<!-- 6 ARCHITECTURE -->
+<section class="slide">
+  <div class="kicker">Architecture</div><h2>Frontend → Java backend → engine → database</h2><div class="bar" style="margin-bottom:12px"></div>
+  <span class="tag-label diagram">Diagram</span>
+  <svg width="1152" height="480" viewBox="0 0 1152 480" style="margin-top:8px">
+    <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#FFD60A"/></marker></defs>
+    <g font-family="Segoe UI,Arial" text-anchor="middle">
+      <rect x="0" y="40" width="250" height="370" rx="18" fill="#fff"/>
+      <text x="125" y="78" font-size="20" font-weight="800" fill="#0a0a0a">FRONTEND</text>
+      <text x="125" y="102" font-size="13" fill="#5c5c5c">HTML · CSS · JavaScript</text>
+      <g font-size="14" font-weight="700" fill="#0a0a0a"><rect x="24" y="124" width="202" height="42" rx="10" fill="#FFF3B0"/><text x="125" y="150">Discover (interests + AI feed)</text>
+      <rect x="24" y="176" width="202" height="42" rx="10" fill="#FFF3B0"/><text x="125" y="202">Explore + product dialog</text>
+      <rect x="24" y="228" width="202" height="42" rx="10" fill="#FFF3B0"/><text x="125" y="254">Reviews</text>
+      <rect x="24" y="280" width="202" height="42" rx="10" fill="#FFF3B0"/><text x="125" y="306">Admin dashboards</text></g>
+      <text x="125" y="360" font-size="12" fill="#5c5c5c">fetch() JSON · session cookie</text>
+
+      <rect x="330" y="40" width="270" height="370" rx="18" fill="#141414" stroke="#FFD60A" stroke-width="2.5"/>
+      <text x="465" y="78" font-size="20" font-weight="800" fill="#FFD60A">JAVA BACKEND</text>
+      <text x="465" y="102" font-size="13" fill="#a3a3a3">embedded Jetty · Jakarta Servlets</text>
+      <g font-size="14" font-weight="700" fill="#fff"><rect x="354" y="124" width="222" height="40" rx="10" fill="#232323"/><text x="465" y="149">Filters: security · auth · roles</text>
+      <rect x="354" y="174" width="222" height="40" rx="10" fill="#232323"/><text x="465" y="199">10 Servlets (JSON API)</text>
+      <rect x="354" y="224" width="222" height="40" rx="10" fill="#232323"/><text x="465" y="249">Services (business logic)</text>
+      <rect x="354" y="274" width="222" height="40" rx="10" fill="#232323"/><text x="465" y="299">DAOs (JDBC, transactions)</text></g>
+      <text x="465" y="352" font-size="12" fill="#a3a3a3">validation · PBKDF2 · exceptions</text>
+
+      <rect x="680" y="40" width="230" height="170" rx="18" fill="#FFD60A"/>
+      <text x="795" y="70" font-size="15" font-weight="800" fill="#0a0a0a">RECOMMENDATION</text><text x="795" y="88" font-size="15" font-weight="800" fill="#0a0a0a">ENGINE</text>
+      <g font-size="13" font-weight="700" fill="#0a0a0a"><text x="795" y="116">Content-based</text><text x="795" y="138">Collaborative</text><text x="795" y="160">Popularity</text></g>
+      <text x="795" y="190" font-size="12" fill="#0a0a0a">parallel threads · admin weights</text>
+
+      <rect x="680" y="250" width="230" height="160" rx="18" fill="#fff"/>
+      <text x="795" y="284" font-size="19" font-weight="800" fill="#0a0a0a">DATABASE</text>
+      <text x="795" y="308" font-size="13" fill="#5c5c5c">accessed through JDBC</text>
+      <g font-size="12" fill="#0a0a0a" font-weight="600"><text x="795" y="334">H2 in this build</text><text x="795" y="354">standard SQL schema -</text><text x="795" y="372">MySQL by changing JDBC URL</text></g>
+
+      <rect x="980" y="40" width="172" height="370" rx="18" fill="#141414" stroke="#2a2a2a"/>
+      <text x="1066" y="78" font-size="17" font-weight="800" fill="#FFD60A">TABLES</text>
+      <g font-size="13" fill="#d4d4d4" font-weight="600"><text x="1066" y="112">users</text><text x="1066" y="138">items · categories</text><text x="1066" y="164">user_preferences</text><text x="1066" y="190">user_tags</text><text x="1066" y="216">interactions</text><text x="1066" y="242">recommendation_log</text><text x="1066" y="268">reviews</text><text x="1066" y="294">settings</text></g>
+    </g>
+    <g stroke="#FFD60A" stroke-width="2.6" fill="none" marker-start="url(#a2)" marker-end="url(#a2)">
+      <path d="M252 225 L328 225"/><path d="M602 125 L678 125"/><path d="M795 212 L795 248"/><path d="M602 330 L650 330 L650 330"/>
+    </g>
+    <g stroke="#FFD60A" stroke-width="2.6" fill="none" marker-end="url(#a2)"><path d="M602 310 L640 310 L640 330 L678 330"/><path d="M912 330 L978 330"/></g>
+  </svg>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>6</b></div>
+</section>
+
+<!-- 7 DATABASE -->
+<section class="slide">
+  <div class="kicker">Database design</div><h2>Relational schema (ER diagram)</h2><div class="bar" style="margin-bottom:12px"></div>
+  <span class="tag-label diagram">Diagram</span>
+  <svg width="1152" height="470" viewBox="0 0 1152 470" style="margin-top:8px" font-family="Segoe UI,Arial">
+    <g stroke="#FFD60A" stroke-width="2" fill="none"><path d="M270 110 L350 120"/><path d="M270 200 L350 230"/><path d="M270 240 L350 350"/><path d="M270 90 L350 40"/><path d="M620 125 L720 120"/><path d="M620 250 L720 120"/><path d="M620 350 L720 360"/><path d="M855 210 L855 228"/></g>
+    <g fill="#fff" stroke="none">
+      <rect x="20" y="70" width="250" height="190" rx="12"/><rect x="350" y="20" width="270" height="70" rx="12"/><rect x="350" y="105" width="270" height="95" rx="12"/><rect x="350" y="215" width="270" height="105" rx="12"/><rect x="350" y="335" width="270" height="110" rx="12"/>
+      <rect x="720" y="70" width="270" height="140" rx="12"/><rect x="720" y="230" width="270" height="95" rx="12"/><rect x="720" y="340" width="270" height="105" rx="12"/><rect x="930" y="20" width="200" height="70" rx="12" opacity="0"/>
+    </g>
+    <g fill="#FFD60A"><rect x="20" y="70" width="250" height="34" rx="12"/><rect x="350" y="20" width="270" height="30" rx="12"/><rect x="350" y="105" width="270" height="30" rx="12"/><rect x="350" y="215" width="270" height="30" rx="12"/><rect x="350" y="335" width="270" height="30" rx="12"/><rect x="720" y="70" width="270" height="34" rx="12"/><rect x="720" y="230" width="270" height="30" rx="12"/><rect x="720" y="340" width="270" height="30" rx="12"/></g>
+    <g font-size="15" font-weight="800" fill="#0a0a0a"><text x="34" y="93">users</text><text x="364" y="41">user_tags</text><text x="364" y="126">user_preferences</text><text x="364" y="236">interactions</text><text x="364" y="356">recommendation_log</text><text x="734" y="93">items</text><text x="734" y="251">categories</text><text x="734" y="361">reviews</text></g>
+    <g font-size="13" fill="#0a0a0a" font-weight="600">
+      <text x="34" y="128">id (PK) · name</text><text x="34" y="150">email (UNIQUE)</text><text x="34" y="172">password_hash (PBKDF2)</text><text x="34" y="194">role ADMIN | USER</text><text x="34" y="216">active · created_at</text>
+      <text x="364" y="72">user_id (FK) · tag</text>
+      <text x="364" y="156">user_id (FK) · category</text><text x="364" y="178">weight 0-5</text>
+      <text x="364" y="266">user_id (FK) · item_id (FK)</text><text x="364" y="288">type VIEW|CLICK|LIKE|BUY|DISMISS</text><text x="364" y="306">created_at</text>
+      <text x="364" y="386">user_id · item_id · score</text><text x="364" y="408">source · outcome · shown_at</text><text x="364" y="430">drives the analytics</text>
+      <text x="734" y="126">id (PK) · slug (UNIQUE)</text><text x="734" y="148">name · brand · description</text><text x="734" y="170">price (INR) · tags · meta</text><text x="734" y="192">category (FK)</text>
+      <text x="734" y="282">name (PK) · emoji · color</text>
+      <text x="734" y="392">user_id · item_id (UNIQUE pair)</text><text x="734" y="414">rating 1-5 · body</text><text x="734" y="436">sample flag</text>
+    </g>
+    <g fill="#141414" stroke="#FFD60A" stroke-width="2"><rect x="1010" y="70" width="140" height="80" rx="12"/></g>
+    <text x="1080" y="98" text-anchor="middle" fill="#FFD60A" font-size="15" font-weight="800">settings</text>
+    <text x="1080" y="120" text-anchor="middle" fill="#d4d4d4" font-size="12" font-weight="600">setting_key (PK)</text>
+    <text x="1080" y="138" text-anchor="middle" fill="#d4d4d4" font-size="12" font-weight="600">setting_value</text>
+    <text x="1080" y="300" text-anchor="middle" fill="#a3a3a3" font-size="12">ON DELETE CASCADE</text>
+    <text x="1080" y="318" text-anchor="middle" fill="#a3a3a3" font-size="12">removes a user's</text>
+    <text x="1080" y="336" text-anchor="middle" fill="#a3a3a3" font-size="12">prefs, history, reviews</text>
+  </svg>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>7</b></div>
+</section>
+
+<!-- 8 HYBRID ALGORITHM -->
+<section class="slide">
+  <div class="kicker">The AI</div><h2>A hybrid recommender with three signals</h2><div class="bar"></div>
+  <div class="card dark" style="text-align:center;font-size:26px;font-weight:700;padding:18px">
+    score(item) = <span style="color:var(--y)">w₁</span>·Content + <span style="color:var(--y)">w₂</span>·Collaborative + <span style="color:var(--y)">w₃</span>·Popularity
+    <div style="font-size:14px;font-weight:500;color:var(--g);margin-top:4px">weights are set by the admin, normalised to 100%, and applied immediately</div>
+  </div>
+  <div class="grid3" style="margin-top:20px">
+    <div class="card"><h3>1 · Content-based</h3><p class="muted" style="font-size:15px">Builds a profile of your categories and topics from what you chose <b>and</b> what you did (recency-decayed). Scores items sharing those features.</p><div class="chip y" style="margin-top:12px">default weight 50%</div></div>
+    <div class="card"><h3>2 · Collaborative</h3><p class="muted" style="font-size:15px">Finds the 10 users most similar to you (cosine similarity) and recommends what they loved that you have not seen.</p><div class="chip y" style="margin-top:12px">default weight 30%</div></div>
+    <div class="card"><h3>3 · Popularity</h3><p class="muted" style="font-size:15px">What the whole community engages with right now. Also solves the cold-start problem for brand-new users.</p><div class="chip y" style="margin-top:12px">default weight 20%</div></div>
+  </div>
+  <div class="card dark" style="margin-top:20px;display:flex;gap:26px;align-items:center;font-size:15px">
+    <div style="flex:1"><b style="color:var(--y)">After blending:</b> remove items already bought or dismissed · drop low scores · limit items per category (diversity) · attach a plain-English reason.</div>
+    <div style="flex:1"><b style="color:var(--y)">Runs in parallel:</b> the three scorers execute on a thread pool (CompletableFuture), so a recommendation takes milliseconds.</div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>8</b></div>
+</section>
+
+<!-- 9 CONTENT-BASED VISUAL -->
+<section class="slide">
+  <div class="kicker">Content-based filtering</div><h2>How your interests become a score</h2><div class="bar" style="margin-bottom:12px"></div>
+  <span class="tag-label diagram">Illustrative example · same rules as ContentBasedScorer</span>
+  <div style="display:grid;grid-template-columns:330px 1fr;gap:26px;margin-top:14px">
+    <div class="card dark" style="border:2px solid var(--y)">
+      <h3 style="color:var(--y)">User profile</h3>
+      <p class="muted" style="font-size:14px;margin-bottom:10px">built from the Interest Studio + past clicks</p>
+      <div style="font-size:15px;line-height:2">Category <b>Books</b> ★★★★★<br>Category <b>Movies</b> ★★★★☆</div>
+      <div style="margin-top:8px"><span class="chip y">#sci-fi</span><span class="chip y">#classic</span></div>
+      <p class="muted" style="font-size:13px;margin-top:14px">Each feature gets a weight: category level ÷ 5, topics +0.6, recent behaviour adds more.</p>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px;display:grid;grid-template-columns:150px 1fr 90px;gap:14px;align-items:center">
+        <div><b style="font-size:18px">Dune</b><div class="muted" style="font-size:13px">Books · Frank Herbert</div></div>
+        <div><span class="chip y">Books ✓</span><span class="chip y">#sci-fi ✓</span><span class="chip y">#classic ✓</span><span class="chip">#epic</span><div style="height:14px;background:#eee;border-radius:7px;margin-top:8px"><div style="width:100%;height:14px;background:var(--y);border-radius:7px"></div></div></div>
+        <div style="text-align:right"><div class="big" style="color:var(--k)">100%</div><div class="muted" style="font-size:12px">3 shared features</div></div>
+      </div>
+      <div class="card" style="margin-bottom:14px;display:grid;grid-template-columns:150px 1fr 90px;gap:14px;align-items:center">
+        <div><b style="font-size:18px">Forrest Gump</b><div class="muted" style="font-size:13px">Movies · R. Zemeckis</div></div>
+        <div><span class="chip y">Movies ✓</span><span class="chip y">#classic ✓</span><span class="chip">#drama</span><div style="height:14px;background:#eee;border-radius:7px;margin-top:8px"><div style="width:62%;height:14px;background:var(--y);border-radius:7px"></div></div></div>
+        <div style="text-align:right"><div class="big" style="color:var(--k)">62%</div><div class="muted" style="font-size:12px">2 shared features</div></div>
+      </div>
+      <div class="card" style="display:grid;grid-template-columns:150px 1fr 90px;gap:14px;align-items:center">
+        <div><b style="font-size:18px">Echo Dot</b><div class="muted" style="font-size:13px">Wearables &amp; Smart Home</div></div>
+        <div><span class="chip">#smart-speaker</span><span class="chip">#alexa</span><span class="chip">#audio</span><div style="height:14px;background:#eee;border-radius:7px;margin-top:8px"><div style="width:4%;height:14px;background:var(--y);border-radius:7px"></div></div></div>
+        <div style="text-align:right"><div class="big" style="color:var(--k)">≈0%</div><div class="muted" style="font-size:12px">no shared features</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>9</b></div>
+</section>
+
+<!-- 10 COLLAB + POPULARITY -->
+<section class="slide">
+  <div class="kicker">Collaborative filtering &amp; popularity</div><h2>Learning from other people</h2><div class="bar" style="margin-bottom:12px"></div>
+  <span class="tag-label diagram">Diagram</span>
+  <svg width="1152" height="400" viewBox="0 0 1152 400" style="margin-top:8px" font-family="Segoe UI,Arial">
+    <defs><marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#FFD60A"/></marker></defs>
+    <g text-anchor="middle" font-weight="700">
+      <circle cx="120" cy="200" r="62" fill="#FFD60A"/><text x="120" y="196" fill="#0a0a0a" font-size="17">You</text><text x="120" y="216" fill="#0a0a0a" font-size="12">liked: A, B</text>
+      <circle cx="400" cy="70" r="46" fill="#fff"/><text x="400" y="66" fill="#0a0a0a" font-size="15">User 1</text><text x="400" y="85" fill="#5c5c5c" font-size="12">A, B, <tspan fill="#0a0a0a" font-weight="800">C</tspan></text>
+      <circle cx="400" cy="200" r="46" fill="#fff"/><text x="400" y="196" fill="#0a0a0a" font-size="15">User 2</text><text x="400" y="215" fill="#5c5c5c" font-size="12">A, <tspan fill="#0a0a0a" font-weight="800">C, D</tspan></text>
+      <circle cx="400" cy="330" r="46" fill="#232323" stroke="#444"/><text x="400" y="326" fill="#a3a3a3" font-size="15">User 3</text><text x="400" y="345" fill="#737373" font-size="12">X, Y, Z</text>
+      <rect x="640" y="150" width="190" height="100" rx="16" fill="#141414" stroke="#FFD60A" stroke-width="2.5"/><text x="735" y="190" fill="#FFD60A" font-size="16">Top-10 neighbours</text><text x="735" y="212" fill="#d4d4d4" font-size="12" font-weight="600">bounded PriorityQueue</text><text x="735" y="230" fill="#d4d4d4" font-size="12" font-weight="600">weighted by similarity</text>
+      <rect x="920" y="150" width="200" height="100" rx="16" fill="#fff"/><text x="1020" y="188" fill="#0a0a0a" font-size="16">Recommend C</text><text x="1020" y="210" fill="#5c5c5c" font-size="12" font-weight="600">"Loved by people with</text><text x="1020" y="228" fill="#5c5c5c" font-size="12" font-weight="600">taste like yours"</text>
+    </g>
+    <g stroke="#FFD60A" stroke-width="2.4" fill="none"><path d="M170 170 L356 85"/><path d="M182 200 L354 200"/></g>
+    <g stroke="#444" stroke-width="2" stroke-dasharray="6 6" fill="none"><path d="M170 238 L360 318"/></g>
+    <g font-size="13" font-weight="800" fill="#FFD60A"><text x="236" y="112" transform="rotate(-24 236 112)">cosine 0.82</text><text x="236" y="190">cosine 0.55</text></g>
+    <text x="270" y="300" fill="#737373" font-size="12" font-weight="700" transform="rotate(22 270 300)">cosine 0 - ignored</text>
+    <g stroke="#FFD60A" stroke-width="2.6" fill="none" marker-end="url(#a3)"><path d="M448 80 L636 180"/><path d="M448 200 L636 200"/><path d="M832 200 L916 200"/></g>
+  </svg>
+  <div class="card dark" style="margin-top:6px;font-size:15px"><b style="color:var(--y)">Popularity</b> adds up engagement from every user, giving recent events more weight (half-life 14 days, admin-tunable). New users with no history still get sensible suggestions.</div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>10</b></div>
+</section>
+
+<!-- 11 SAMPLE OUTPUT (REAL) -->
+<section class="slide">
+  <div class="kicker">Sample recommendation output</div><h2>Change the preferences → the picks change</h2><div class="bar" style="margin-bottom:10px"></div>
+  <span class="tag-label">Real output captured from the running application</span>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <h3>Profile A &nbsp;<span class="chip y">Books ★5 · Movies ★4</span><span class="chip">#sci-fi</span><span class="chip">#classic</span></h3>
+      <table><tr><th>Top picks</th><th>Match</th><th>Why</th></tr>
+        <tr><td><b>The 7 Habits of Highly Effective People</b><br><span class="muted">Books</span></td><td><b>74%</b></td><td>Matches your interest in classic</td></tr>
+        <tr><td><b>The Hitchhiker's Guide to the Galaxy</b><br><span class="muted">Books</span></td><td><b>63%</b></td><td>sci-fi &amp; classic</td></tr>
+        <tr><td><b>Forrest Gump</b><br><span class="muted">Movies</span></td><td><b>62%</b></td><td>Matches classic</td></tr>
+        <tr><td><b>The Godfather</b><br><span class="muted">Movies</span></td><td><b>58%</b></td><td>Matches classic</td></tr>
+        <tr><td><b>Tapo C200 Security Camera</b><br><span class="muted">Smart Home</span></td><td><b>57%</b></td><td>Loved by similar users</td></tr></table>
+    </div>
+    <div class="card" style="border:3px solid var(--y)">
+      <h3>Profile B &nbsp;<span class="chip y">Fitness ★5 · Wearables ★4</span><span class="chip">#running</span><span class="chip">#fitness</span></h3>
+      <table><tr><th>Top picks</th><th>Match</th><th>Why</th></tr>
+        <tr><td><b>Tapo C200 Security Camera</b><br><span class="muted">Smart Home</span></td><td><b>70%</b></td><td>Loved by similar users</td></tr>
+        <tr><td><b>Mi 360° Home Security Camera 2K</b><br><span class="muted">Smart Home</span></td><td><b>53%</b></td><td>Because you enjoy Wearables</td></tr>
+        <tr><td><b>Speedgoat 5 Trail Shoes</b><br><span class="muted">Fitness</span></td><td><b>53%</b></td><td>Matches running</td></tr>
+        <tr><td><b>Forerunner 55</b><br><span class="muted">Fitness</span></td><td><b>52%</b></td><td>running &amp; fitness</td></tr>
+        <tr><td><b>GRID Foam Roller</b><br><span class="muted">Fitness</span></td><td><b>51%</b></td><td>Matches fitness</td></tr></table>
+    </div>
+  </div>
+  <p class="cap" style="margin-top:10px">Same user account, same engine - only the interests changed. Books and movies dominate profile A; running shoes, a sports watch and a foam roller appear for profile B.</p>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>11</b></div>
+</section>
+
+<!-- 12 SCREENS: LOGIN + STUDIO -->
+<section class="slide">
+  <div class="kicker">Working application</div><h2>Sign in and tell the AI what you love</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div style="display:grid;grid-template-columns:0.7fr 1.55fr;gap:22px">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/860;background-image:url('shots/01-login.png')"></div></div><p class="cap"><b>Screenshot</b> · Login page with demo accounts for presenting</p>
+      <ul style="margin-top:10px"><li>Secure sessions, PBKDF2 passwords</li><li>Register with starting interests</li></ul></div>
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/800;background-image:url('shots/02-discover-studio.png');background-position:0 0"></div></div><p class="cap"><b>Screenshot</b> · Discover - the Interest Studio (14 categories, levels, vibes, taste DNA)</p>
+      <ul style="margin-top:10px"><li>Tap a tile, fine-tune with dots, or start from a vibe</li><li>Changes autosave in about a second</li></ul></div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>12</b></div>
+</section>
+
+<!-- 13 LIVE FEED -->
+<section class="slide">
+  <div class="kicker">User dashboard</div><h2>Personal feed with an explanation on every card</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/980;background-image:url('shots/03-discover-full.png');background-position:0 86%"></div></div><p class="cap"><b>Screenshot</b> · The AI feed under the studio - the preferences above are what produced these picks</p></div>
+    <div>
+      <div class="card dark" style="margin-bottom:12px"><h3 style="color:var(--y)">What the user sees</h3><ul><li><b>Top pick</b> as a large featured card</li><li><b>Match %</b> from the blended score</li><li><b>Reason</b>: "Matches your interest in smartphone"</li><li><b>Signal bar</b>: content / similar users / trending</li></ul></div>
+      <div class="card"><h3>What the user can do</h3><ul><li>♥ like · 🛒 buy · ✕ not interested</li><li>Open details and write a review</li><li>Every action trains the next list</li></ul></div>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>13</b></div>
+</section>
+
+<!-- 14 EXPLORE -->
+<section class="slide">
+  <div class="kicker">Real catalogue</div><h2>251 real products, books and films</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div class="grid2">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/900;background-image:url('shots/04-explore-movies.png')"></div></div><p class="cap"><b>Screenshot</b> · Explore - real film posters</p></div>
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/900;background-image:url('shots/05-explore-books.png')"></div></div><p class="cap"><b>Screenshot</b> · Explore - real book covers with public reader ratings</p></div>
+  </div>
+  <div class="card dark" style="margin-top:14px;font-size:15px;display:flex;gap:30px"><div><b style="color:var(--y)">14 categories</b> - phones, laptops, audio, cameras, wearables, gaming, books, movies, fashion, home, fitness, food, beauty, toys</div><div><b style="color:var(--y)">Search, filter, sort</b> by price or brand. Pictures from Open Library and Wikipedia / Wikimedia, credited in the repository.</div></div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>14</b></div>
+</section>
+
+<!-- 15 PRODUCT DIALOG + MOBILE -->
+<section class="slide">
+  <div class="kicker">Product details &amp; feedback</div><h2>Reviews that also teach the AI</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 0.5fr;gap:22px;align-items:start">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/1100;background-image:url('shots/06-product-reviews.png')"></div></div><p class="cap"><b>Screenshot</b> · Product dialog - cover, rating, star histogram, write-a-review form</p></div>
+    <div>
+      <div class="card" style="margin-bottom:12px"><h3>Customer feedback</h3><ul><li>Users post star reviews</li><li>A 4-5★ review = a <b>like</b> for the recommender; 1-2★ = <b>not interested</b></li><li>Demo reviews are clearly labelled <b>Sample review</b></li><li>Public ratings (Open Library) shown on books</li></ul></div>
+      <div class="card dark"><h3 style="color:var(--y)">Responsive</h3><p style="font-size:14px;color:#d4d4d4">The same UI works on phones - tiles become two columns.</p></div>
+    </div>
+    <div><div class="shot"><div class="crop" style="aspect-ratio:390/844;background-image:url('shots/07-mobile.png')"></div></div><p class="cap"><b>Screenshot</b> · Mobile</p></div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>15</b></div>
+</section>
+
+<!-- 16 ADMIN ANALYTICS -->
+<section class="slide">
+  <div class="kicker">Admin dashboard · recommendation analysis</div><h2>Which recommendations actually work?</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div style="display:grid;grid-template-columns:2.1fr 1fr;gap:24px;align-items:start">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/860;background-image:url('shots/08-admin-analytics.png')"></div></div><p class="cap"><b>Screenshot</b> · Admin analytics with live charts</p></div>
+    <div>
+      <div class="card dark" style="margin-bottom:12px"><h3 style="color:var(--y)">Reports</h3><ul><li>KPIs: shown, CTR, like, conversion, dismiss</li><li>14 / 30 / 90-day trend chart</li><li>Click-through per AI signal and per category</li><li>Top performing items</li></ul></div>
+      <div class="card"><h3>Smart suggestions</h3><p style="font-size:15px" class="muted">Rule-based advice such as "shift weight toward collaborative signals" with an <b>Apply suggestion</b> button that updates the settings.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>16</b></div>
+</section>
+
+<!-- 17 ADMIN SETTINGS + USERS -->
+<section class="slide">
+  <div class="kicker">Admin dashboard · system settings &amp; users</div><h2>Tune the algorithm, manage people</h2><div class="bar" style="margin-bottom:10px"></div>
+  <div class="grid2">
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/900;background-image:url('shots/09-admin-settings.png')"></div></div><p class="cap"><b>Screenshot</b> · System settings - weights with live blend preview, criteria, save / reset</p></div>
+    <div><div class="shot"><div class="crop" style="aspect-ratio:1440/900;background-image:url('shots/10-admin-users.png')"></div></div><p class="cap"><b>Screenshot</b> · User management - roles, activate, profile, delete</p></div>
+  </div>
+  <div class="card dark" style="margin-top:14px;font-size:15px;display:flex;gap:30px"><div><b style="color:var(--y)">Validated &amp; atomic:</b> every setting is checked on the server and saved in one transaction.</div><div><b style="color:var(--y)">Safe:</b> the last administrator cannot be deleted or demoted; admins cannot remove themselves.</div></div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>17</b></div>
+</section>
+
+<!-- 18 CORE JAVA -->
+<section class="slide roomy">
+  <div class="kicker">Core Java concepts</div><h2>OOP · Collections · Exceptions · Threads</h2><div class="bar"></div>
+  <div class="grid2">
+    <div class="card"><h3>Object-oriented design</h3><ul><li><b>Interface + polymorphism:</b> <code>Scorer</code> with three implementations (Strategy pattern)</li><li><b>Inheritance:</b> <code>ApiServlet</code> base class for 10 servlets</li><li><b>Encapsulation:</b> records and a validating <code>RecommendationSettings</code></li><li><b>Enums with behaviour:</b> <code>InteractionType</code>, <code>RecOutcome</code></li></ul></div>
+    <div class="card"><h3>Collections</h3><ul><li><code>HashMap / LinkedHashMap</code> for profiles and vectors</li><li><code>PriorityQueue</code> - bounded top-10 neighbours</li><li><code>Set / LinkedHashSet</code> for exclusions and tags</li><li><code>TreeMap</code>, streams and <code>Comparator</code> chains</li><li><code>ConcurrentHashMap</code> for login throttling</li></ul></div>
+    <div class="card"><h3>Exception handling</h3><ul><li>Custom hierarchy: Validation · Authentication · Forbidden · NotFound · Conflict · DataAccess</li><li>One central handler turns them into JSON errors with the right HTTP status</li><li>try-with-resources and transaction rollback</li></ul></div>
+    <div class="card"><h3>Threads &amp; concurrency</h3><ul><li><code>ExecutorService</code> + <code>CompletableFuture</code>: scorers run in parallel with a timeout</li><li><code>ScheduledExecutorService</code> housekeeping job</li><li>Immutable context object, <code>volatile</code> settings cache</li></ul></div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>18</b></div>
+</section>
+
+<!-- 19 JDBC + SERVLETS -->
+<section class="slide roomy">
+  <div class="kicker">Database &amp; web integration</div><h2>JDBC transactions, Servlets and sessions</h2><div class="bar"></div>
+  <div class="grid2">
+    <div class="card dark" style="border:2px solid var(--y)"><h3 style="color:var(--y)">JDBC</h3><ul><li>9 tables with PK, FK, CHECK, UNIQUE, indexes, ON DELETE CASCADE</li><li>CRUD through <code>PreparedStatement</code> (no SQL injection)</li><li>Connection pool and batch inserts</li><li><b>Transactions</b> (commit / rollback): registration, preference update, interaction + log, reviews, settings</li><li>Aggregate <code>GROUP BY</code> analytics queries</li></ul></div>
+    <div class="card dark" style="border:2px solid var(--y)"><h3 style="color:var(--y)">Servlets &amp; sessions</h3><ul><li>10 servlets: GET / POST / PUT / PATCH / DELETE with JSON and proper status codes</li><li><code>HttpSession</code>: new session id at login (fixation defence), 30-minute timeout, HttpOnly cookie</li><li><b>Filters:</b> <code>AuthFilter</code> (login + admin role) and security headers (CSP, nosniff)</li><li>Front-end talks to the servlets with <code>fetch()</code></li></ul></div>
+  </div>
+  <div class="card" style="margin-top:20px;display:flex;gap:30px;align-items:center"><b style="font-size:18px">Security</b><span>PBKDF2 hashing with salt · constant-time compare · login lock after 5 failures · server-side validation · XSS-safe UI (no innerHTML with data)</span></div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>19</b></div>
+</section>
+
+<!-- 20 TESTING -->
+<section class="slide roomy">
+  <div class="kicker">Code quality &amp; testing</div><h2>28 automated tests, all passing</h2><div class="bar"></div>
+  <div class="grid2">
+    <div class="card"><table><tr><th>Test class</th><th>Tests</th><th>What it proves</th></tr>
+      <tr><td><b>UtilTest</b></td><td>6</td><td>password hashing, validation, outcome rules</td></tr>
+      <tr><td><b>EngineTest</b></td><td>10</td><td>each scorer, exclusions, diversity, weights, cold start, decay</td></tr>
+      <tr><td><b>IntegrationTest</b></td><td>12</td><td>real JDBC database: login lock, registration, <b>rollback</b>, preferences, reviews, analytics, admin safeguards</td></tr></table></div>
+    <div class="card dark">
+      <h3 style="color:var(--y)">Quality practices</h3>
+      <ul><li>Package-by-layer: config · model · dao · service · engine · web · util</li><li>One responsibility per class, Javadoc on key classes</li><li>Input validated in one place</li><li>Consistent JSON error contract</li><li>Reproducible demo data (fixed random seed)</li><li>Build: Maven; run: <code>run.bat</code></li></ul>
+    </div>
+  </div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>20</b></div>
+</section>
+
+<!-- 21 CONTRIBUTIONS -->
+<section class="slide">
+  <div class="kicker">Teamwork &amp; collaboration</div><h2>Who did what</h2><div class="bar" style="margin-bottom:12px"></div>
+  <div class="grid3">
+    <div class="card" style="border-top:8px solid var(--y)">
+      <h3 style="font-size:22px">Vedang Goswami</h3><div class="chip y">Team Leader</div>
+      <ul style="margin-top:10px;font-size:15px"><li>Planned the architecture and divided the work</li><li>Built the <b>recommendation engine</b>: three scorers, blending, explanations, parallel threads</li><li>Implemented <b>servlets, filters, sessions</b> and security</li><li>Merged everyone's work, final testing, this presentation</li></ul>
+    </div>
+    <div class="card" style="border-top:8px solid var(--y)">
+      <h3 style="font-size:22px">Ankur Kushwaha</h3><div class="chip">Member</div>
+      <ul style="margin-top:10px;font-size:15px"><li>Designed the <b>database schema</b> and ER diagram</li><li>Wrote the <b>JDBC DAOs</b> and transaction helper</li><li>Loaded the 251-product catalogue; analytics and reviews services</li><li>Wrote the <b>JUnit integration tests</b></li></ul>
+    </div>
+    <div class="card" style="border-top:8px solid var(--y)">
+      <h3 style="font-size:22px">Nitin Raghuvanshi</h3><div class="chip">Member</div>
+      <ul style="margin-top:10px;font-size:15px"><li>Designed the <b>black-white-yellow UI</b> (60 / 30 / 10)</li><li>Built Discover, product dialog, admin dashboards</li><li>Researched products and gathered pictures with credits</li><li>README, design diagrams and documentation</li></ul>
+    </div>
+  </div>
+  <div class="card dark" style="margin-top:16px;font-size:15px;display:flex;gap:24px"><div><b style="color:var(--y)">How we worked:</b> feature branches, pull requests with one reviewer, small commits, and a green test run before every merge.</div><div><b style="color:var(--y)">Together:</b> weekly review of the rubric checklist and live demo rehearsal.</div></div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>21</b></div>
+</section>
+
+<!-- 22 INNOVATION -->
+<section class="slide roomy">
+  <div class="kicker">Innovation &amp; extra effort</div><h2>Beyond the minimum requirements</h2><div class="bar"></div>
+  <div class="grid3">
+    <div class="card"><h3>Explainable AI</h3><p class="muted" style="font-size:15px">Every card says why it was suggested and shows the mix of signals.</p></div>
+    <div class="card"><h3>Interest Studio</h3><p class="muted" style="font-size:15px">One screen: tell the AI your interests on top, live picks below. Presets, topics and a taste-DNA bar.</p></div>
+    <div class="card"><h3>Self-tuning advice</h3><p class="muted" style="font-size:15px">Analytics generate suggestions the admin applies in one click.</p></div>
+    <div class="card"><h3>Real catalogue</h3><p class="muted" style="font-size:15px">251 real items - 162 products, 45 books, 44 films - each with a real picture.</p></div>
+    <div class="card"><h3>Reviews feed the AI</h3><p class="muted" style="font-size:15px">Star reviews are also behavioural signals for the recommender.</p></div>
+    <div class="card"><h3>Safe &amp; accessible</h3><p class="muted" style="font-size:15px">Login lock, admin safeguards, keyboard-accessible, responsive layout.</p></div>
+  </div>
+  <div class="card dark" style="margin-top:18px;font-size:15px"><b style="color:var(--y)">Tech stack:</b> Java 17 · Jakarta Servlets on embedded Jetty · JDBC · H2 (MySQL-compatible SQL) · Gson · JUnit 5 · Maven · HTML / CSS / JavaScript (no framework)</div>
+  <div class="foot"><span>Pulse · AI-Based Recommendation System</span><b>22</b></div>
+</section>
+
+<!-- 23 CONCLUSION -->
+<section class="slide" style="padding:0">
+  <svg width="1280" height="720" viewBox="0 0 1280 720" style="position:absolute;inset:0"><defs><radialGradient id="g2" cx="85%" cy="20%" r="60%"><stop offset="0" stop-color="#FFD60A" stop-opacity=".3"/><stop offset="1" stop-color="#0a0a0a" stop-opacity="0"/></radialGradient></defs><rect width="1280" height="720" fill="#0a0a0a"/><rect width="1280" height="720" fill="url(#g2)"/></svg>
+  <div style="position:absolute;left:72px;top:70px;width:1136px">
+    <div class="kicker">Conclusion</div><h2 style="font-size:44px">A complete, explainable Java recommendation system</h2><div class="bar"></div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="card dark"><h3 style="color:var(--y)">What we delivered</h3><ul><li>Working Java web application with Servlets, JDBC and sessions</li><li>Hybrid AI recommender with explanations</li><li>Admin settings, analytics and user management</li><li>User preferences, personalised feed and reviews</li><li>28 passing tests, diagrams and full documentation</li></ul></div>
+      <div class="card dark"><h3 style="color:var(--y)">Future scope</h3><ul><li>Switch to MySQL / PostgreSQL for production</li><li>Learn weights automatically from feedback (A/B tests)</li><li>Embeddings for text and image similarity</li><li>Email / push "picked for you" digests</li><li>Real checkout and inventory integration</li></ul></div>
+    </div>
+    <div style="margin-top:34px;text-align:center"><div style="font-size:44px;font-weight:800;letter-spacing:-1px">Thank you <span style="color:var(--y)">· Questions?</span></div>
+      <div style="margin-top:12px;font-size:18px;color:#d4d4d4">Vedang Goswami (Team Leader) &nbsp;·&nbsp; Ankur Kushwaha &nbsp;·&nbsp; Nitin Raghuvanshi</div></div>
+  </div>
+  <div class="foot" style="left:72px;right:72px"><span>Pulse · AI-Based Recommendation System</span><b>23</b></div>
+</section>
+
+</body>
+</html>

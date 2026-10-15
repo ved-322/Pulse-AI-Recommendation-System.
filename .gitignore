@@ -1,0 +1,6 @@
+backend/target/
+data/
+*.mv.db
+*.trace.db
+.idea/
+.vscode/

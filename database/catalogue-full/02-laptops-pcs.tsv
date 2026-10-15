@@ -1,0 +1,45 @@
+#category=Laptops & PCs|emoji=💻|color=#0ea5e9
+# brand|name|price (INR, approx.)|tags|meta|description
+Apple|MacBook Air 13-inch (M3)|114900|laptop,ultraportable,macos,work||Fanless, ultra-thin laptop with the M3 chip and all-day battery life.
+Apple|MacBook Air 15-inch (M3)|134900|laptop,macos,large-screen,work||Big-screen Air with a 15.3-inch Liquid Retina display and a six-speaker sound system.
+Apple|MacBook Pro 14-inch (M3 Pro)|199900|laptop,macos,pro,creative||Pro laptop with a Liquid Retina XDR display, M3 Pro chip and excellent battery life.
+Apple|Mac mini (M2)|59900|desktop,macos,compact,work||Tiny desktop powerhouse with the M2 chip that fits beside any display.
+Apple|iMac 24-inch (M3)|134900|desktop,macos,all-in-one||All-in-one desktop with a 4.5K Retina display in seven bold colours.
+Dell|XPS 13|139990|laptop,ultraportable,windows,premium||Premium aluminium ultraportable with a minimalist design and an edge-to-edge display.
+Dell|XPS 15|189990|laptop,windows,creative,premium||Creator laptop with a stunning OLED option and powerful discrete graphics.
+Dell|Inspiron 15|52990|laptop,windows,student,value||Reliable everyday 15.6-inch laptop for study and home use.
+Dell|Alienware m16 R2|219990|laptop,gaming,windows,performance||High-performance gaming laptop with a 16-inch QHD+ display and advanced cooling.
+HP|Spectre x360 14|169990|laptop,2-in-1,windows,premium||Convertible laptop with a gem-cut aluminium design and a vivid OLED touchscreen.
+HP|Pavilion Aero 13|74990|laptop,ultraportable,windows,value||Featherweight magnesium-alloy laptop with a tall 16:10 display.
+HP|Victus 15|66990|laptop,gaming,windows,value||Entry gaming laptop with dedicated NVIDIA graphics and a 144Hz display.
+HP|Omen 16|139990|laptop,gaming,windows,performance||Performance gaming laptop with strong cooling and a high-refresh 16-inch screen.
+Lenovo|ThinkPad X1 Carbon Gen 12|199990|laptop,business,windows,ultraportable||Business ultrabook famous for its keyboard, light carbon-fibre body and durability.
+Lenovo|ThinkPad E14|65990|laptop,business,windows,value||Dependable business laptop with a classic ThinkPad keyboard at an accessible price.
+Lenovo|Yoga Slim 7i|109990|laptop,ultraportable,windows,creative||Slim creator-friendly laptop with a sharp display and long battery life.
+Lenovo|Legion 5i|109990|laptop,gaming,windows,performance||Popular gaming laptop with a great keyboard, strong thermals and a high-refresh display.
+Lenovo|IdeaPad Slim 3|42990|laptop,student,value,windows||Slim everyday laptop that covers study, browsing and streaming on a budget.
+ASUS|ROG Zephyrus G14|164990|laptop,gaming,portable,windows||Compact 14-inch gaming laptop that balances serious power with portability.
+ASUS|ROG Strix G16|149990|laptop,gaming,performance,windows||Powerful 16-inch gaming laptop with a fast display and bold RGB styling.
+ASUS|Zenbook 14 OLED|89990|laptop,ultraportable,oled,windows||Light 14-inch laptop with a 2.8K OLED display and a premium finish.
+ASUS|Vivobook 15|44990|laptop,student,value,windows||Everyday 15.6-inch laptop with a slim bezel design for students.
+ASUS|TUF Gaming F15|79990|laptop,gaming,value,durable||Military-grade durable gaming laptop with a high-refresh display.
+Acer|Swift Go 14|79990|laptop,ultraportable,oled,windows||Lightweight laptop with a 2.8K OLED display and long battery life.
+Acer|Nitro V 15|74990|laptop,gaming,value,windows||Budget-friendly gaming laptop with a fast display and dedicated graphics.
+Acer|Aspire 5|49990|laptop,student,value,windows||Dependable all-rounder for homework, work and entertainment.
+Acer|Predator Helios Neo 16|129990|laptop,gaming,performance,windows||High-end gaming laptop with a 16-inch display and plenty of cooling headroom.
+Microsoft|Surface Laptop 7|139999|laptop,windows,snapdragon,ultraportable||Copilot+ PC with a Snapdragon X chip, vibrant PixelSense display and excellent battery life.
+Microsoft|Surface Pro 11|116999|2-in-1,tablet,windows,premium||Versatile 2-in-1 tablet with a detachable keyboard and an OLED display option.
+Samsung|Galaxy Book4 Pro|153990|laptop,oled,windows,ultraportable||Thin and light laptop with a 3K AMOLED display and Galaxy ecosystem features.
+MSI|Katana 15|89990|laptop,gaming,windows,performance||Mid-range gaming laptop with a high-refresh display and strong cooling.
+LG|gram 16|139990|laptop,lightweight,windows,large-screen||Surprisingly light 16-inch laptop with a huge battery and a large, sharp display.
+Razer|Blade 14|249990|laptop,gaming,premium,portable||Premium CNC-aluminium 14-inch gaming laptop with a high-refresh QHD+ display.
+Framework|Framework Laptop 13|110000|laptop,repairable,modular||Modular, user-repairable laptop designed to be upgraded and kept for years.
+Raspberry Pi|Raspberry Pi 5|7999|maker,computing,programming,hobby||Pocket-sized single-board computer for learning to code, robotics and home projects.
+Logitech|MX Master 3S|9995|accessory,mouse,work,ergonomic||Flagship ergonomic mouse with a quiet-click design and a fast MagSpeed scroll wheel.
+Logitech|MX Keys S|10995|accessory,keyboard,work,wireless||Low-profile wireless keyboard with smart backlighting and multi-device pairing.
+Keychron|K2 Wireless Mechanical Keyboard|8299|accessory,keyboard,typing,rgb||Compact 75% hot-swappable keyboard with Bluetooth, Mac/Windows layouts and RGB backlight.
+Logitech|Brio 4K Webcam|16699|accessory,webcam,remote-work,video||4K Ultra HD webcam with HDR, auto light correction and Windows Hello support.
+Samsung|T7 Portable SSD 1TB|8299|accessory,storage,travel,fast||Pocket-sized external SSD with up to 1,050 MB/s read speeds and a metal body.
+BenQ|ScreenBar Monitor Light|9199|accessory,desk,lighting,remote-work||Clip-on monitor lamp with asymmetric optics that reduces screen glare.
+LG|UltraGear 27GP850-B|28999|monitor,gaming,desk,performance||27-inch QHD Nano IPS gaming monitor with a fast 165Hz refresh rate.
+Dell|UltraSharp U2723QE|54999|monitor,work,creative,4k||27-inch 4K IPS Black monitor with USB-C hub for colour-accurate work.
